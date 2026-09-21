@@ -1,3 +1,4 @@
+import utils.session
 import json
 
 from anomaly_detector import AnomalyDetector
