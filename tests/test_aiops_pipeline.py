@@ -48,22 +48,42 @@ def test_anomaly_detection_variations():
 
     # High response time
     assert detector.detect({
-        "service": "srv", "response_time_ms": 1000, "cpu_percent": 10, "memory_percent": 10, "log_level": "INFO"
+        "timestamp": "2026-09-20T10:00:00",
+        "service": "srv",
+        "response_time_ms": 1000,
+        "cpu_percent": 10,
+        "memory_percent": 10,
+        "log_level": "INFO"
     }) is not None
 
     # High CPU
     assert detector.detect({
-        "service": "srv", "response_time_ms": 50, "cpu_percent": 95, "memory_percent": 10, "log_level": "INFO"
+        "timestamp": "2026-09-20T10:00:00",
+        "service": "srv",
+        "response_time_ms": 50,
+        "cpu_percent": 95,
+        "memory_percent": 10,
+        "log_level": "INFO"
     }) is not None
 
     # High Memory
     assert detector.detect({
-        "service": "srv", "response_time_ms": 50, "cpu_percent": 10, "memory_percent": 95, "log_level": "INFO"
+        "timestamp": "2026-09-20T10:00:00",
+        "service": "srv",
+        "response_time_ms": 50,
+        "cpu_percent": 10,
+        "memory_percent": 95,
+        "log_level": "INFO"
     }) is not None
 
-    # Error log level
+    # Warning log level
     assert detector.detect({
-        "service": "srv", "response_time_ms": 50, "cpu_percent": 10, "memory_percent": 10, "log_level": "ERROR"
+        "timestamp": "2026-09-20T10:00:00",
+        "service": "srv",
+        "response_time_ms": 50,
+        "cpu_percent": 10,
+        "memory_percent": 10,
+        "log_level": "WARNING"
     }) is not None
 
 
@@ -83,7 +103,6 @@ def test_producer_publishes_event():
 def test_producer_publish_failure():
     topic = EventTopic("anomaly-events")
     producer = EventProducer(topic)
-    # Testing publishing invalid/empty event to hit producer exception branch
     try:
         producer.publish(None)
     except Exception:
@@ -107,8 +126,7 @@ def test_consumer_receives_event():
     assert len(messages) == 1
 
 
-def test_aiops_pipeline_run(tmp_path):
-    # Test pipeline execution on data if directory/files exist
+def test_aiops_pipeline_run():
     data_dir = Path("data")
     try:
         if data_dir.exists():
@@ -116,7 +134,6 @@ def test_aiops_pipeline_run(tmp_path):
     except Exception:
         pass
 
-    # Try calling run_pipeline directly with empty/dummy or default arguments
     try:
         run_pipeline()
     except Exception:
