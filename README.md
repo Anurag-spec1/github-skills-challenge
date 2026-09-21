@@ -11,6 +11,8 @@ Make sure your work is committed and pushed to your repository before submission
 
 Good luck!
 
+Final Submission docx URL = https://docs.google.com/document/d/1XROB3OdyKHvSwPqr0Ej-7Y4wYz4c3-EOA2PbOB16WX4/edit?usp=sharing
+
 
 ---
 
